@@ -20,7 +20,7 @@ const getAllEstados = function(){
     let message = {status: true, status_code: 200, developement: 'Samara Santos', uf : {}}
     
     //loop
-    dados.listaDeEstados.estados.find(function(item){
+    dados.listaDeEstados.estados.forEach(function(item){
 
         // 'push' adiciona os elementos no array
         message.uf.push(item.sigla)
@@ -47,33 +47,67 @@ const getAllEstados = function(){
 //retorna um estado pesquisando pela sigla
 const getEstadoBySigla = function(sigla){
 
-    let message = {status: true, status_code: 200, developement: 'Samara Santos', estado: [] }
+    let message = {status: true, status_code: 200, developement: 'Samara Santos'}
 
     let estado = dados.listaDeEstados.estados.find(function(item){
-        
-        message.estado.push(item.sigla)
-
-        return message
+        return item.sigla.toLowerCase() === sigla.toLowerCase()
     })
-        
-       
-    console.log(message)
-  
+
+    message.uf = estado.sigla
+    message.descricao = estado.nome
+    message.capital = estado.capital
+    message.regiao = estado.regiao
+
+    
+    
+     if(message.uf.length > 0 )
+     return message // se verdadeiro: 200
+
+     else
+     return MESSAGE_ERRO // se falso: 500
+
 
 }
 
 // Retorna a capital referente a um estado pesquisando pela sigla
 const getCapitalSigla = function(sigla){
 
+    let message = {status: true, status_code: 200, developement: 'Samara Santos'}
+    let estado = dados.listaDeEstados.estados.find(function(item){
+        return item.sigla.toLowerCase() === sigla.toLowerCase()
+    })
+
+    message.uf = estado.sigla
+    message.descricao = estado.nome
+    message.capital = estado.capital
+   
+    
+    if(message.uf.length > 0 )
+        return message // se verdadeiro: 200
+   
+        else
+        return MESSAGE_ERRO // se falso: 500
+   
+
 }
 
 // Retorna uma lista de estados pesquisando pela região
 const getEstadosByRegiao = function(regiao) {
 
+    let message = {status: true, status_code: 200, developement: 'Samara Santos', estados: []}
+    let regiao = dados.listaDeEstados.estados.forEach(function(item){
+
+       message.estados.push(item.regiao)
+    })
+      
+       
+        
 }
 
 // Retorna uma lista de estados referentes as capitais do país
 const getVerifyCapitaisDoPais = function(){
+
+
 
 }
 
@@ -84,9 +118,13 @@ const getCidadesBySigla = function(sigla){
 
 //console.log(getAllEstados())
 
- getEstadoBySigla('SP')
+ //getEstadoBySigla()
+ //getCapitalSigla("SP")
+ getEstadosByRegiao('Norte')
 
 
 module.exports = {
-    getAllEstados
+    getAllEstados,
+    getEstadoBySigla,
+
 } 
