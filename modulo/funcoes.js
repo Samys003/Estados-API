@@ -17,10 +17,10 @@ const dados = require('./estados_cidades.js')
 const getAllEstados = function(){
     // array criado no "uf : []" , "push" incluiu as informações nele  
     //variavel de base para o cabeçalho da API
-    let message = {status: true, status_code: 200, developement: 'Samara Santos', uf : []}
+    let message = {status: true, status_code: 200, developement: 'Samara Santos', uf : {}}
     
     //loop
-    dados.listaDeEstados.estados.forEach(function(item){
+    dados.listaDeEstados.estados.find(function(item){
 
         // 'push' adiciona os elementos no array
         message.uf.push(item.sigla)
@@ -47,10 +47,17 @@ const getAllEstados = function(){
 //retorna um estado pesquisando pela sigla
 const getEstadoBySigla = function(sigla){
 
-    let message = {status: true, status_code: 200, developement: 'Samara Santos', estado: []}
+    let message = {status: true, status_code: 200, developement: 'Samara Santos', estado: [] }
 
-    dados.listaDeEstados.estados[sigla]
+    let estado = dados.listaDeEstados.estados.find(function(item){
+        
+        message.estado.push(item.sigla)
 
+        return message
+    })
+        
+       
+    console.log(message)
   
 
 }
@@ -77,7 +84,7 @@ const getCidadesBySigla = function(sigla){
 
 //console.log(getAllEstados())
 
- getEstadoBySigla()
+ getEstadoBySigla('SP')
 
 
 module.exports = {
