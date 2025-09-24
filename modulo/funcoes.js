@@ -17,7 +17,7 @@ const dados = require('./estados_cidades.js')
 const getAllEstados = function(){
     // array criado no "uf : []" , "push" incluiu as informações nele  
     //variavel de base para o cabeçalho da API
-    let message = {status: true, status_code: 200, developement: 'Samara Santos', uf : {}}
+    let message = {status: true, status_code: 200, developement: 'Samara Santos', uf : []}
     
     //loop
     dados.listaDeEstados.estados.forEach(function(item){
@@ -60,13 +60,13 @@ const getEstadoBySigla = function(sigla){
 
     
     
-     if(message.uf.length > 0 )
-     return message // se verdadeiro: 200
+    //  if(message.uf.length > 0 )
+    //  return message // se verdadeiro: 200
 
-     else
-     return MESSAGE_ERRO // se falso: 500
+    //  else
+    //  return MESSAGE_ERRO // se falso: 500
 
-
+    console.log(message)
 }
 
 // Retorna a capital referente a um estado pesquisando pela sigla
@@ -82,26 +82,31 @@ const getCapitalSigla = function(sigla){
     message.capital = estado.capital
    
     
-    if(message.uf.length > 0 )
-        return message // se verdadeiro: 200
+    // if(message.uf.length > 0 )
+    //     return message // se verdadeiro: 200
    
-        else
-        return MESSAGE_ERRO // se falso: 500
+    //     else
+    //     return MESSAGE_ERRO // se falso: 500
    
-
+    console.log(message)
 }
 
 // Retorna uma lista de estados pesquisando pela região
 const getEstadosByRegiao = function(regiao) {
 
     let message = {status: true, status_code: 200, developement: 'Samara Santos', estados: []}
-    let regiao = dados.listaDeEstados.estados.forEach(function(item){
+     regiao = dados.listaDeEstados.estados.forEach(function(item){
 
-       message.estados.push(item.regiao)
+       while(regiao = item){
+        message.estados.push(estados)
+       
+       }
+        
+       
     })
       
        
-        
+    console.log(message)
 }
 
 // Retorna uma lista de estados referentes as capitais do país
@@ -118,8 +123,8 @@ const getCidadesBySigla = function(sigla){
 
 //console.log(getAllEstados())
 
- //getEstadoBySigla()
- //getCapitalSigla("SP")
+ //getEstadoBySigla("SP")
+// getCapitalSigla("SP")
  getEstadosByRegiao('Norte')
 
 
