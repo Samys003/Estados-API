@@ -74,7 +74,7 @@ const getCapitalSigla = function(sigla){
 
     let message = {status: true, status_code: 200, developement: 'Samara Santos'}
     let estado = dados.listaDeEstados.estados.find(function(item){
-        return item.sigla.toLowerCase() === sigla.toLowerCase()
+        return item.sigla === sigla
     })
 
     message.uf = estado.sigla
@@ -94,42 +94,60 @@ const getCapitalSigla = function(sigla){
 // Retorna uma lista de estados pesquisando pela região
 const getEstadosByRegiao = function(regiao) {
 
-    let message = {status: true, status_code: 200, developement: 'Samara Santos', estados: []}
-     regiao = dados.listaDeEstados.estados.forEach(function(item){
-
-       while(regiao = item){
-        message.estados.push(estados)
-       
-       }
+    let message = {status: true, status_code: 200, developement: 'Samara Santos', regiao: regiao , estados: [] }
+     estado = dados.listaDeEstados.estados.forEach(function(item){
+            if (item.regiao === regiao)
+            
+          
+            message.estados.push(item.nome)
+            
         
-       
-    })
-      
-       
-    console.log(message)
-}
+     }) 
+        
+        console.log(message)
+        
+    }
 
 // Retorna uma lista de estados referentes as capitais do país
 const getVerifyCapitaisDoPais = function(){
+     let message = {status: true, status_code: 200, developement: 'Samara Santos', capitais: [] }
 
-
-
+    capital = dados.listaDeEstados.estados.filter(function(capitais){
+      console.log(capitais.capital_pais)
+    })
+    
 }
 
 //Retorna uma lista de cidades pesquisando pela sigla do estado
 const getCidadesBySigla = function(sigla){
+    let message = {status: true, status_code: 200, developement: 'Samara Santos', sigla: sigla , cidades: []}
 
+    cidade = dados.listaDeEstados.estados.forEach(function(item){
+           if(item.sigla === sigla) {
+             item.cidades.forEach(function(resultado){
+
+           message.cidades.push(resultado.nome)
+             
+        })
+    }
+    })
+    console.log(message)
 }
 
 //console.log(getAllEstados())
 
  //getEstadoBySigla("SP")
-// getCapitalSigla("SP")
- getEstadosByRegiao('Norte')
-
+ //getCapitalSigla("SP")
+ //getEstadosByRegiao('Centro-Oeste')
+console.log(getVerifyCapitaisDoPais())
+//getCidadesBySigla("SP")
 
 module.exports = {
     getAllEstados,
     getEstadoBySigla,
+    getCapitalSigla,
+    getEstadosByRegiao,
+    getCidadesBySigla
+
 
 } 
