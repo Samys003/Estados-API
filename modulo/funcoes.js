@@ -60,13 +60,13 @@ const getEstadoBySigla = function(sigla){
 
     
     
-    //  if(message.uf.length > 0 )
-    //  return message // se verdadeiro: 200
+     if(message.uf.length > 0 )
+      return message // se verdadeiro: 200
 
-    //  else
-    //  return MESSAGE_ERRO // se falso: 500
+     else
+     return MESSAGE_ERRO // se falso: 500
 
-    console.log(message)
+    
 }
 
 // Retorna a capital referente a um estado pesquisando pela sigla
@@ -82,13 +82,12 @@ const getCapitalSigla = function(sigla){
     message.capital = estado.capital
    
     
-    // if(message.uf.length > 0 )
-    //     return message // se verdadeiro: 200
+     if(message.uf.length > 0 )
+      return message // se verdadeiro: 200
    
-    //     else
-    //     return MESSAGE_ERRO // se falso: 500
+      else
+     return MESSAGE_ERRO // se falso: 500
    
-    console.log(message)
 }
 
 // Retorna uma lista de estados pesquisando pela região
@@ -104,17 +103,39 @@ const getEstadosByRegiao = function(regiao) {
         
      }) 
         
-        console.log(message)
+       if(message.estados > 0)
+        return message
+       else
+        return MESSAGE_ERRO
         
     }
 
 // Retorna uma lista de estados referentes as capitais do país
 const getVerifyCapitaisDoPais = function(){
-     let message = {status: true, status_code: 200, developement: 'Samara Santos', capitais: [] }
+     
+     let message = {status: true, status_code: 200, developement: 'Samara Santos', capital: []}
 
-    capital = dados.listaDeEstados.estados.filter(function(capitais){
-      console.log(capitais.capital_pais)
-    })
+        capital = dados.listaDeEstados.estados.forEach(function(item){
+           if(item.capital_pais){
+
+            message.capital.push({
+            capital_atual: item.capital_pais.capital,
+             uf: item.sigla,
+             descricao: item.nome,
+             capital: item.capital,
+             capital_pais_ano_inicio: item.capital_pais.ano_inicio,
+             capital_pais_ano_termino: item.capital_pais.ano_fim 
+           })
+        
+        }
+             if(message.capital > 0)
+                return message
+            else
+                return MESSAGE_ERRO
+
+        })  
+             
+           
     
 }
 
@@ -124,29 +145,30 @@ const getCidadesBySigla = function(sigla){
 
     cidade = dados.listaDeEstados.estados.forEach(function(item){
            if(item.sigla === sigla) {
-             item.cidades.forEach(function(resultado){
-
-           message.cidades.push(resultado.nome)
-             
-        })
-    }
+            
+            item.cidades.forEach(function(cidade){
+                message.cidades.push(cidade.nome)
+            })
+                
+        }
+    
     })
-    console.log(message)
+    
+      if(message.sigla > 0)
+                return message
+            else
+                return MESSAGE_ERRO
+
+  
 }
 
-//console.log(getAllEstados())
-
- //getEstadoBySigla("SP")
- //getCapitalSigla("SP")
- //getEstadosByRegiao('Centro-Oeste')
-console.log(getVerifyCapitaisDoPais())
-//getCidadesBySigla("SP")
 
 module.exports = {
     getAllEstados,
     getEstadoBySigla,
     getCapitalSigla,
     getEstadosByRegiao,
+    getVerifyCapitaisDoPais,
     getCidadesBySigla
 
 
